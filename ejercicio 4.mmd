@@ -1,0 +1,36 @@
+classDiagram
+
+    class Robot {
+    }
+
+    class Modulo {
+        -int largo
+        -int ancho
+        -int alto
+        -int identificador
+    }
+
+    class Dinamico {
+        +int motores
+        +String tipoMovimiento
+        +String: movimiento
+    }
+
+    class Estatico {
+        +int sensores
+    }
+
+    class SistemaControl {
+    }
+
+    class SistemaComunicacion {
+    }
+
+    
+    Modulo <|-- Dinamico
+    Modulo <|-- Estatico
+
+    
+    Robot "1" *-- "1..*" Modulo : compuesto por
+    Modulo "1" *-- "1" SistemaControl : compuesto por
+    Modulo "1" *-- "1" SistemaComunicacion : compuesto por
