@@ -1,0 +1,49 @@
+classDiagram
+    class BaseDeDatos {
+        -url:String
+        +anadirPublicacion(String) Publicacion
+    }
+    class Publicacion {
+        <<abstract>>
+        -String nombre
+        -Date fecha
+    }
+    
+    class ArticuloDeConferencia {
+        -int numPaginas
+    }
+    
+    class CapituloDeLibro {
+        -int numCapitulo
+    }
+    
+    class Libro {
+        -int[4] ISBN
+    }
+    
+    class Proceeding{
+        -String lugarConferencia
+    }
+    
+    class Autor {
+        -String nombre
+        -String correoElectronico
+        -String entidad
+        +anadirEntidad(String) void
+        +consultar(consulta:String) List<Publicacion>
+    }
+
+     1. HERENCIA 
+    Publicacion <|-- ArticuloDeConferencia
+    Publicacion <|-- CapituloDeLibro
+    Publicacion <|-- Libro
+    Libro <|-- Proceeding
+
+    2. COMPOSICIÓN 
+    BaseDeDatos "1" *-- "0..." Publicacion : se componen de
+    Libro "1" *-- "*" CapituloDeLibro : contienen
+    Proceeding "1" *-- "0..*" ArticuloDeConferencia : compuestos por
+
+     3. ASOCIACIÓN NORMAL 
+    Autor "*" --> "*" ArticuloDeConferencia : escriben
+    Autor "*" --> "*" BaseDeDatos : consultan
