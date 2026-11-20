@@ -1,17 +1,46 @@
 classDiagram 
-    class gestionPedido{
-        -estado: EstadoPedido
       
-    }
 class EstadoPedido{
     <<enumeration>>
     PENDIENTE,
     PAGADO, PROCESANDO, ENVIADO, ENTREGADO
 }
 class Pedido{
-    
+    estado: EstadoPedido
+    fecha: Date
 }
 
 class FormasPago{
-    
+   
 }
+
+class TarjetaCredito{
+    fechaCaducidad: Date
+    numeroTarjeta: String
+}
+
+class Efectivo{
+    moneda: String
+}
+
+class Cheque{
+    nombreCheque: String
+    entidadBancaria: String
+}
+
+class Cliente{
+    nombre: String
+}
+
+class Producto{
+    precio: double
+    stock: int
+    impuesto: double
+}
+
+Cliente "1" --> "1..n" Pedido
+Pedido "1" --> "1..n" Producto
+FormasPago <|-- TarjetaCredito
+FormasPago <|-- Efectivo   
+FormasPago <|-- Cheque
+Pedido "1" *-- "1..n" FormasPago
